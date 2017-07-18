@@ -9,7 +9,6 @@ var {
 
 import BaseComponent from './BaseComponent'
 import Utils from './Utils'
-import Spinner from 'react-native-loading-spinner-overlay';
 
 import styles from './styles'
 
@@ -120,6 +119,21 @@ class Webbrowser extends BaseComponent {
         />;
     }
 
+      renderLoader = () => {
+        if (this.state.loading) {
+            return (  
+                <View style={styles.overlay}>     
+                    <ActivityIndicator
+                        size="large"
+                        animating
+                        color={this.propsforegroundColor || "#fff"}
+                    />
+                </View>
+            );
+        }
+        return null;
+  }
+
     render() {
         return (
             <View style={[styles.container, this.props.backgroundColor && {backgroundColor: this.props.backgroundColor}]}>
@@ -141,7 +155,7 @@ class Webbrowser extends BaseComponent {
                     scalesPageToFit={this.state.scalesPageToFit}
                 />
                 {this.renderToolbar()}
-                <Spinner visible={this.state.loading} />
+                {this.renderLoader()}
             </View>
         );
     }
