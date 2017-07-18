@@ -82,5 +82,12 @@ export default StyleSheet.create({
         width:20,
         height:20,
         opacity: 0.9
-    }
+    },
+    overlay: {
+        ...StyleSheet.absoluteFillObject,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0,0,0,0.3)',
+        zIndex: 99,
+    },
 });
