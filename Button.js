@@ -6,8 +6,7 @@ var {
     TouchableOpacity,
     StyleSheet,
     PropTypes,
-    ActivityIndicatorIOS,
-    ProgressBarAndroid,
+    ActivityIndicator,
     TouchableNativeFeedback,
     Platform,
     Component
@@ -22,22 +21,7 @@ class Button extends Component {
         this.state = {}
     }
 
-    _renderChildAndroid() {
-
-        if (this.props.loading) {
-            return (
-                <ProgressBarAndroid
-                    style={[{height: 20}, styles.spinner]}
-                    styleAttr='Inverse'
-                    color={this.props.activityIndicatorColor || 'black'}
-                />
-            );
-        }
-
-        return this.props.children;
-    }
-
-    _renderChildiOS() {
+    _renderChild() {
         if (this.props.loading) {
             return (
                 <ActivityIndicatorIOS
@@ -49,13 +33,6 @@ class Button extends Component {
             );
         }
         return this.props.children;
-    }
-
-    _renderChild() {
-        if (IS_ANDROID) {
-            return this._renderChildAndroid()
-        }
-        return this._renderChildiOS()
     }
 
     render() {
@@ -79,14 +56,14 @@ class Button extends Component {
                 });
                 return (
                     <TouchableNativeFeedback {...touchableProps}>
-                        {this._renderChildAndroid()}
+                        {this._renderChild()}
                     </TouchableNativeFeedback>
                 )
             } else {
                 return (
                     <TouchableOpacity {...touchableProps}
                         style={[styles.button, this.props.style]}>
-                        {this._renderChildiOS()}
+                        {this._renderChild()}
                     </TouchableOpacity>
                 );
             }
